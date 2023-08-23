@@ -1,16 +1,13 @@
-# test_task
 
-A new Flutter project.
+Issue caution Explanation - 
 
-## Getting Started
+ListView.builder makes items on demand. That means, they construct item widgets & destroy them when they go beyond more than cacheExtent.
 
-This project is a starting point for a Flutter application.
+So you cannot keep any ephemeral state inside that item widget. (So most of the time item widgets are Stateless, but when you need to use keepAlive you use Stateful item widgets)
 
-A few resources to get you started if this is your first Flutter project:
+In this case, you have to keep your state in a parent widget. So I think the best option you can use is the State management approach for this.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Solution - 
+
+We use AutomaticKeepAliveClientMixin to keep our item state alive in the Listview Builder. We have different approaches as well to resolve this issue. 
